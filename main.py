@@ -13,7 +13,7 @@ SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
 intents = discord.Intents.default()
 intents.message_content = True
 intents.dm_messages = True
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='~!@#', intents=intents)
 
 @bot.event
 async def on_ready():
