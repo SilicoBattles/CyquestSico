@@ -45,15 +45,15 @@ async def on_message(message):
                 elif "Irrelevant" in bot_reply:
                     await message.channel.send("Irrelevant")
                 else:
-                    await message.channel.send("Sorry, I couldn't get a valid response from the AI.")
+                    await message.channel.send("Sorry, I couldn't get a valid response from the Silico Service.")
             else:
-                await message.channel.send("Sorry, I couldn't get a valid response from the AI.")
+                await message.channel.send("Sorry, I couldn't get a valid response from the Silico Service.")
         except requests.exceptions.RequestException as e:
             print(f"Error calling AI API: {e}")
-            await message.channel.send("Sorry, I'm having trouble connecting to the AI service right now.")
+            await message.channel.send("Sorry, I'm having trouble connecting to the Silico service right now.")
         except json.JSONDecodeError:
             print("Error decoding JSON response from AI API.")
-            await message.channel.send("Sorry, I received an unreadable response from the AI service.")
+            await message.channel.send("Sorry, I received an unreadable response from the Silico service.")
     await bot.process_commands(message)
 
 
