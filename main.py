@@ -76,7 +76,7 @@ def run_bot():
     except discord.LoginFailure:
         print("Invalid bot token.")
     except Exception as exc:
-        print(f"An error occurred: {exc}")
+        print(f"An error occurred: {exc}") # noqa: E501
 
 if __name__ == '__main__':
     run_bot()
