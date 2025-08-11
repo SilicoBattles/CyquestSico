@@ -72,11 +72,6 @@ async def on_ready():
     """Event handler for when the bot is ready."""
     print(f'Bot connected as {bot.user}')
     print(f'User ID: {bot.user.id}')
-    for guild in bot.guilds:
-        print(f'Guild: {guild.name} (ID: {guild.id})')
-        print('Members:')
-        async for member in guild.fetch_members(limit=None):
-            print(f'- {member} (ID: {member.id})')
 
 @bot.event
 async def on_message(message):
