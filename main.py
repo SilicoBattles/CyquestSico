@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 AI_API_URL = os.getenv("AI_API_URL")
 SYSTEM_PROMPT = os.getenv("SYSTEM_PROMPT")
