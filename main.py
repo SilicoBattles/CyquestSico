@@ -1,9 +1,9 @@
-import discord
-from discord.ext import commands
-import requests
 import json
 import os
 from dotenv import load_dotenv
+import discord
+from discord.ext import commands
+import requests
 
 load_dotenv()
 
@@ -18,11 +18,13 @@ bot = commands.Bot(command_prefix='~!@#', intents=intents)
 
 @bot.event
 async def on_ready():
+    """Event handler for when the bot is ready."""
     print(f'Bot connected as {bot.user}')
     print(f'User ID: {bot.user.id}')
 
 @bot.event
 async def on_message(message):
+    """Event handler for processing incoming messages."""
     if message.author == bot.user:
         return
     if isinstance(message.channel, discord.DMChannel):
@@ -35,7 +37,9 @@ async def on_message(message):
             "model": "qwen/qwen3-32b"
         }
         try:
-            response = requests.post(AI_API_URL, headers=headers, data=json.dumps(payload))
+            response = requests.post(
+                AI_API_URL, headers=headers, data=json.dumps(payload)
+            )
             response.raise_for_status()
             ai_response = response.json()
             if ai_response and ai_response.get("choices"):
@@ -45,25 +49,34 @@ async def on_message(message):
                 elif "Irrelevant" in bot_reply:
                     await message.channel.send("Irrelevant")
                 else:
-                    await message.channel.send("Sorry, I couldn't get a valid response from the Silico Service.")
+                    await message.channel.send(
+                        "Sorry, I couldn't get a valid response from the Silico Service."
+                    )
             else:
-                await message.channel.send("Sorry, I couldn't get a valid response from the Silico Service.")
-        except requests.exceptions.RequestException as e:
-            print(f"Error calling AI API: {e}")
-            await message.channel.send("Sorry, I'm having trouble connecting to the Silico service right now.")
+                await message.channel.send(
+                    "Sorry, I couldn't get a valid response from the Silico Service."
+                )
+        except requests.exceptions.RequestException as exc:
+            print(f"Error calling AI API: {exc}")
+            await message.channel.send(
+                "Sorry, I'm having trouble connecting to the Silico service right now."
+            )
         except json.JSONDecodeError:
             print("Error decoding JSON response from AI API.")
-            await message.channel.send("Sorry, I received an unreadable response from the Silico service.")
+            await message.channel.send(
+                "Sorry, I received an unreadable response from the Silico service."
+            )
     await bot.process_commands(message)
 
 
 def run_bot():
+    """Run the Discord bot."""
     try:
         bot.run(TOKEN)
     except discord.LoginFailure:
         print("Invalid bot token.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    except Exception as exc:
+        print(f"An error occurred: {exc}")
 
 if __name__ == '__main__':
     run_bot()
